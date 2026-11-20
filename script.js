@@ -76,6 +76,65 @@ let gameStarted = false;
 let soundEnabled = true;
 let audioContext = null;
 
+let availableVoices = [];
+
+const femaleVoiceNames = [
+  "aria",
+  "jenny",
+  "zira",
+  "samantha",
+  "victoria",
+  "kathy",
+  "serena",
+  "susan",
+  "hazel",
+  "sonia",
+  "libby",
+  "ava",
+  "emma",
+  "michelle",
+  "tessa",
+  "female"
+];
+
+function loadVoices() {
+  if (!("speechSynthesis" in window)) return;
+  availableVoices = window.speechSynthesis.getVoices();
+}
+
+function getFemaleVoice() {
+  loadVoices();
+
+  const englishVoices = availableVoices.filter(voice =>
+    voice.lang && voice.lang.toLowerCase().startsWith("en")
+  );
+
+  const femaleVoices = englishVoices.filter(voice => {
+    const name = voice.name.toLowerCase();
+
+    return femaleVoiceNames.some(keyword =>
+      name.includes(keyword)
+    );
+  });
+
+  femaleVoices.sort((a, b) => {
+    const aUS = a.lang.toLowerCase() === "en-us" ? 1 : 0;
+    const bUS = b.lang.toLowerCase() === "en-us" ? 1 : 0;
+
+    const aNatural = /natural|online/i.test(a.name) ? 1 : 0;
+    const bNatural = /natural|online/i.test(b.name) ? 1 : 0;
+
+    return (bUS + bNatural) - (aUS + aNatural);
+  });
+
+  return femaleVoices[0] || null;
+}
+
+if ("speechSynthesis" in window) {
+  loadVoices();
+  window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+}
+
 function shuffle(array) {
   const result = [...array];
 
@@ -192,12 +251,23 @@ function playWinSound() {
 function speakWord(word) {
   if (!soundEnabled || !("speechSynthesis" in window)) return;
 
+  const voice = getFemaleVoice();
+
+  if (!voice) {
+    console.warn(
+      "No suitable female English voice found. Please install a female English voice in your system."
+    );
+    return;
+  }
+
   window.speechSynthesis.cancel();
 
   const speech = new SpeechSynthesisUtterance(word);
-  speech.lang = "en-US";
-  speech.rate = 0.82;
-  speech.pitch = 1.05;
+
+  speech.voice = voice;
+  speech.lang = voice.lang;
+  speech.rate = 0.88;
+  speech.pitch = 1.4;
   speech.volume = 1;
 
   window.speechSynthesis.speak(speech);
