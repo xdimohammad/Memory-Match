@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FFF9F0">
+  <meta name="description" content="A cute memory matching game for little learners at Elara Playhouse.">
+  <title>Memory Match | Elara Playhouse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<div class="game-app">
+  <header class="game-header">
+    <a class="brand" href="#" aria-label="Elara Playhouse">
+      <span class="brand-star">✦</span>
+      <span>ELARA PLAYHOUSE</span>
+    </a>
+    <span class="game-label">A LITTLE LEARNING ADVENTURE</span>
+  </header>
+
+  <main class="main-content">
+    <section class="intro">
+      <div class="intro-sparkle">✦ ✧ ✦</div>
+      <h1>Memory Match</h1>
+      <p>Flip the cards, find the matching pairs and learn new words!</p>
+      <div class="intro-decoration">🧸 🌈 ⭐</div>
+    </section>
+
+    <section class="game-panel">
+      <div class="settings">
+        <div class="setting-group">
+          <label for="themeSelect">Learning Theme</label>
+          <select id="themeSelect">
+            <option value="all">All Themes</option>
+            <option value="toys">Toys &amp; Playtime</option>
+            <option value="everyday">Everyday Things</option>
+            <option value="home">Things at Home</option>
+            <option value="school">School Things</option>
+            <option value="clothes">Clothes &amp; Accessories</option>
+          </select>
+        </div>
+
+        <div class="setting-group">
+          <label for="levelSelect">Difficulty</label>
+          <select id="levelSelect">
+            <option value="easy">Easy · 4 Pairs</option>
+            <option value="medium" selected>Medium · 6 Pairs</option>
+            <option value="hard">Hard · 8 Pairs</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-label">Stars</span>
+          <strong id="starCount">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon">🎯</span>
+          <span class="stat-label">Moves</span>
+          <strong id="moveCount">0</strong>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon">⏱️</span>
+          <span class="stat-label">Time</span>
+          <strong id="timer">00:00</strong>
+        </div>
+      </div>
+
+      <div class="game-toolbar">
+        <p id="gameMessage">Find the matching pairs!</p>
+        <div class="toolbar-buttons">
+          <button id="soundButton" class="icon-button" type="button" aria-label="Turn sound off" title="Sound on">🔊</button>
+          <button id="restartButton" class="restart-button" type="button">↻ Restart</button>
+        </div>
+      </div>
+
+      <div id="gameBoard" class="game-board" aria-label="Memory cards"></div>
+
+      <div class="learning-tip">
+        <span>💡</span>
+        <p>Match two cards to discover the word. Listen and learn!</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="game-footer">
+    <p>Made with <span>♥</span> for little learners</p>
+    <p>Elara Playhouse · A World of Little Wonders</p>
+  </footer>
+
+  <div id="winModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+    <div class="modal-card">
+      <div class="win-confetti">🎉 ✨ 🎉</div>
+      <div class="win-trophy">🏆</div>
+      <h2 id="winTitle">Amazing Job!</h2>
+      <p class="win-message">You found all the matching pairs!</p>
+      <div class="win-stars" id="winStars">⭐⭐⭐</div>
+      <div class="win-stats">
+        <div><span>Moves</span><strong id="finalMoves">0</strong></div>
+        <div><span>Time</span><strong id="finalTime">00:00</strong></div>
+      </div>
+      <button id="playAgainButton" class="play-again-button" type="button">Play Again! 🌈</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
